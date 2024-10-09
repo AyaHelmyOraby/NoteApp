@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:noteapp/views/widgets/notes_view_body.dart';
+import 'package:provider/provider.dart';
+import 'notes_provider.dart';
+import 'notes_view_body.dart';
 
 void main() {
-  runApp(const NoteApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => NotesProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
-class NoteApp extends StatefulWidget {
-  const NoteApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  @override
-  State<NoteApp> createState() => _NoteAppState();
-}
-
-class _NoteAppState extends State<NoteApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-   
-      home: Scaffold(
-       
-        body: const NotesViewBody(), // Assuming you have a NotesView to show here
-      ),
-      debugShowCheckedModeBanner: false,
+      title: 'Notes App',
+      theme: ThemeData.dark(),
+      home: const NotesViewBody(),
+            debugShowCheckedModeBanner: false,
+
     );
   }
 }
